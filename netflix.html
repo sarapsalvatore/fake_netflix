@@ -16,7 +16,102 @@
         -webkit-font-smoothing: antialiased;
       }
 
-      /* --- HORIZONTÁLNE MENU --- */
+      /* --- 1. INTRO OBRAZOVKA (Z index.html) --- */
+      #intro-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #intro-video {
+        display: none;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .play-intro-btn {
+        padding: 15px 35px;
+        background-color: transparent;
+        color: #e50914;
+        border: 2px solid #e50914;
+        font-size: 1.3rem;
+        font-weight: bold;
+        border-radius: 4px;
+        cursor: pointer;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+
+      /* --- 2. WHO'S WATCHING OBRAZOVKA (Z index.html) --- */
+      #profiles-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #141414;
+        z-index: 9998;
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .profiles-title {
+        font-size: 3.5rem;
+        color: #fff;
+        font-weight: 500;
+        margin-bottom: 30px;
+        letter-spacing: 1px;
+      }
+
+      .profile-list {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+        margin-bottom: 50px;
+      }
+
+      .profile-card-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        cursor: pointer;
+      }
+
+      .profile-avatar {
+        width: 150px;
+        height: 150px;
+        border-radius: 50% !important;
+        border: 3px solid transparent;
+        transition:
+          border-color 0.2s ease,
+          transform 0.2s ease;
+        object-fit: cover;
+        background-color: #2b93ce;
+      }
+
+      .profile-card-wrapper:hover .profile-avatar {
+        border-color: #fff;
+        transform: scale(1.05);
+      }
+
+      .profile-name {
+        margin-top: 15px;
+        font-size: 1.3rem;
+        color: #808080;
+      }
+
+      /* --- 3. HLAVNÁ STRÁNKA NETFLIXU --- */
       header {
         padding: 0 4%;
         background: linear-gradient(
@@ -61,7 +156,6 @@
         color: #b3b3b3;
       }
 
-      /* --- HERO SEKCE (STRIKTNÝ NETFLIX ŠTÝL) --- */
       .hero {
         height: 85vh;
         background:
@@ -76,7 +170,9 @@
             rgba(20, 20, 20, 0.8) 0%,
             rgba(20, 20, 20, 0) 60%
           ),
-          linear-gradient(135deg, #180d2b, #05030a);
+          url("https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1600&q=80");
+        background-size: cover;
+        background-position: center;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -107,6 +203,7 @@
         font-weight: 900;
         letter-spacing: -2px;
         line-height: 1.05;
+        text-transform: uppercase;
       }
 
       .top-10-badge {
@@ -116,7 +213,6 @@
         font-size: 1.1rem;
         font-weight: 700;
         margin-bottom: 15px;
-        color: #fff;
       }
       .top-10-icon {
         background-color: #e50914;
@@ -134,11 +230,10 @@
         max-width: 550px;
         margin-bottom: 25px;
         color: #fff;
-        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
         line-height: 1.4;
+        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
       }
 
-      /* DECENTNÉ NETFLIX TLAČIDLÁ */
       .hero-buttons {
         display: flex;
         gap: 12px;
@@ -180,10 +275,9 @@
         background-color: rgba(109, 109, 110, 0.4);
       }
 
-      /* --- NETFLIX FILMOVÝ RIADOK --- */
       .main-container {
         padding: 0 4% 60px 4%;
-        margin-top: -70px;
+        margin-top: -60px;
         position: relative;
         z-index: 5;
       }
@@ -197,7 +291,7 @@
 
       .movies-row {
         display: flex;
-        gap: 10px;
+        gap: 12px;
         overflow-x: auto;
         padding: 10px 0;
         width: 100%;
@@ -207,61 +301,61 @@
       }
 
       .movie-card {
-        min-width: 210px;
-        width: 210px;
-        height: 315px;
+        min-width: 230px;
+        width: 230px;
+        height: 130px;
         border-radius: 4px;
         cursor: pointer;
         display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start;
+        align-items: flex-end;
         position: relative;
         box-sizing: border-box;
-        transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        transition: transform 0.3s ease;
         overflow: hidden;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        background-size: cover;
+        background-position: center;
       }
 
       .movie-card:hover {
-        transform: scale(1.06);
+        transform: scale(1.08);
         z-index: 2;
       }
 
       .movie-card h3 {
         margin: 0;
-        padding: 14px 12px;
-        font-size: 0.95rem;
+        padding: 10px;
+        font-size: 0.9rem;
         font-weight: 700;
         color: #fff;
         background: linear-gradient(
-          to bottom,
-          rgba(0, 0, 0, 0.85) 0%,
+          to top,
+          rgba(0, 0, 0, 0.9) 0%,
           rgba(0, 0, 0, 0) 100%
         );
         width: 100%;
         box-sizing: border-box;
-        text-align: left;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 3;
-      }
-
-      .movie-number {
-        position: absolute;
-        bottom: 8px;
-        right: 12px;
-        font-size: 3.5rem;
-        font-weight: 900;
-        color: rgba(255, 255, 255, 0.18);
-        font-style: italic;
-        line-height: 1;
-        z-index: 1;
       }
     </style>
   </head>
   <body>
+    <div id="intro-container">
+      <button class="play-intro-btn" id="start-btn" onclick="startEverything()">
+        Start watching
+      </button>
+      <video id="intro-video" src="intro.mp4" playsinline></video>
+    </div>
+
+    <div id="profiles-container">
+      <div class="profiles-title">Who's Watching?</div>
+      <div class="profile-list">
+        <div class="profile-card-wrapper" onclick="selectProfile()">
+          <img src="profilovka.jpg" alt="Profile" class="profile-avatar" />
+          <div class="profile-name">Love</div>
+        </div>
+      </div>
+    </div>
+
     <header>
       <div class="logo">NETFLIX</div>
       <nav>
@@ -297,52 +391,74 @@
     </div>
 
     <div class="main-container">
-      <div class="row-title">Top Picks For You</div>
+      <div class="row-title">Najpopulárnejšie u vás</div>
 
       <div class="movies-row">
         <div
           class="movie-card"
-          style="background: linear-gradient(135deg, #3d0c40, #a83232)"
+          style="
+            background-image:
+              linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5)),
+              url(&quot;https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=400&q=80&quot;);
+          "
         >
           <h3>Film 1: Výlet do mesta</h3>
-          <div class="movie-number">1</div>
         </div>
         <div
           class="movie-card"
-          style="background: linear-gradient(135deg, #0b665f, #1fa857)"
+          style="
+            background-image:
+              linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5)),
+              url(&quot;https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=400&q=80&quot;);
+          "
         >
           <h3>Film 2: Zo školy</h3>
-          <div class="movie-number">2</div>
         </div>
         <div
           class="movie-card"
-          style="background: linear-gradient(135deg, #0084ad, #004eab)"
+          style="
+            background-image:
+              linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5)),
+              url(&quot;https://images.unsplash.com/photo-1510312305653-8ed496efae75?auto=format&fit=crop&w=400&q=80&quot;);
+          "
         >
           <h3>Film 3: Letná chata</h3>
-          <div class="movie-number">3</div>
-        </div>
-        <div
-          class="movie-card"
-          style="background: linear-gradient(135deg, #b86942, #b53a3e)"
-        >
-          <h3>Film 4: Narodeniny</h3>
-          <div class="movie-number">4</div>
-        </div>
-        <div
-          class="movie-card"
-          style="background: linear-gradient(135deg, #5100a3, #9e00b3)"
-        >
-          <h3>Film 5: Párty</h3>
-          <div class="movie-number">5</div>
-        </div>
-        <div
-          class="movie-card"
-          style="background: linear-gradient(135deg, #a31608, #a6750f)"
-        >
-          <h3>Film 6: Spomienky</h3>
-          <div class="movie-number">6</div>
         </div>
       </div>
     </div>
+
+    <script>
+      var currentVideoSrc = "";
+      var done = false;
+
+      function startEverything() {
+        var btn = document.getElementById("start-btn");
+        var introVideo = document.getElementById("intro-video");
+
+        btn.style.display = "none";
+        introVideo.style.display = "block";
+        introVideo.play();
+
+        introVideo.onended = function () {
+          switchToProfiles();
+        };
+
+        // Záložný časovač ak by video zlyhalo (4.1 sekundy)
+        setTimeout(function () {
+          switchToProfiles();
+        }, 4100);
+      }
+
+      function switchToProfiles() {
+        if (done) return;
+        done = true;
+        document.getElementById("intro-container").style.display = "none";
+        document.getElementById("profiles-container").style.display = "flex";
+      }
+
+      function selectProfile() {
+        document.getElementById("profiles-container").style.display = "none";
+      }
+    </script>
   </body>
 </html>

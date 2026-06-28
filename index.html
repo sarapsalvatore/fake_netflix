@@ -14,9 +14,10 @@
         padding: 0;
         box-sizing: border-box;
         overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
       }
 
-      /* --- 1. INTRO OBRAZOVKA (OKAMŽITÉ ZMIZNUTIE) --- */
+      /* --- 1. INTRO OBRAZOVKA --- */
       #intro-container {
         position: fixed;
         top: 0;
@@ -88,11 +89,10 @@
         cursor: pointer;
       }
 
-      /* DOKONALE GUĽATÝ TVAR PROFILOVKY */
       .profile-avatar {
         width: 150px;
         height: 150px;
-        border-radius: 50% !important;
+        border-radius: 4px;
         border: 3px solid transparent;
         transition:
           border-color 0.2s ease,
@@ -112,9 +112,9 @@
         color: #808080;
       }
 
-      /* --- 3. HLAVNÝ NETFLIX WEB --- */
+      /* --- 3. REÁLNY NETFLIX NAV BAR --- */
       header {
-        padding: 20px 50px;
+        padding: 0 4%;
         background: linear-gradient(
           to bottom,
           rgba(0, 0, 0, 0.7) 0%,
@@ -122,122 +122,297 @@
         );
         position: fixed;
         width: 100%;
+        height: 68px;
         top: 0;
+        left: 0;
         z-index: 10;
         box-sizing: border-box;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: background-color 0.5s;
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
       }
 
       .logo {
         color: #e50914;
-        font-size: 30px;
-        font-weight: bold;
-        text-transform: uppercase;
+        font-size: 25px;
+        font-weight: 900;
+        letter-spacing: 0.5px;
+        margin-right: 45px;
+        text-decoration: none;
       }
 
+      nav ul {
+        display: flex;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        gap: 20px;
+      }
+
+      nav ul li a {
+        color: #e5e5e5;
+        text-decoration: none;
+        font-size: 0.85rem;
+        transition: color 0.3s;
+      }
+      nav ul li a:hover {
+        color: #b3b3b3;
+      }
+
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        font-size: 0.9rem;
+        color: #e5e5e5;
+      }
+
+      .header-right svg {
+        fill: #fff;
+        cursor: pointer;
+        width: 18px;
+        height: 18px;
+      }
+
+      .profile-dropdown-trigger {
+        width: 32px;
+        height: 32px;
+        border-radius: 4px;
+        cursor: pointer;
+        object-fit: cover;
+      }
+
+      /* --- 4. HERO SEKCE (NETFLIX VIBE) --- */
       .hero {
-        height: 65vh;
+        height: 85vh;
         background:
           linear-gradient(
             to top,
             #141414 0%,
-            rgba(0, 0, 0, 0.1) 60%,
+            rgba(20, 20, 20, 0.1) 40%,
             rgba(0, 0, 0, 0.5) 100%
           ),
-          url("https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1925")
-            no-repeat center center/cover;
+          linear-gradient(
+            to right,
+            rgba(20, 20, 20, 0.8) 0%,
+            rgba(20, 20, 20, 0.4) 30%,
+            rgba(20, 20, 20, 0) 60%
+          ),
+          url("https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1925");
+        background-size: cover;
+        background-position: center;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        padding-left: 50px;
+        padding-left: 4%;
         box-sizing: border-box;
+        position: relative;
+      }
+
+      .series-tag {
+        font-size: 0.8rem;
+        letter-spacing: 4px;
+        color: #e5e5e5;
+        font-weight: 700;
+        margin-bottom: 0px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .series-tag .n-logo {
+        color: #e50914;
+        font-size: 2.2rem;
+        font-weight: 900;
+        line-height: 1;
       }
 
       .hero-title {
-        font-size: 3.5rem;
-        margin: 0 0 15px 0;
-        font-weight: bold;
+        font-size: 5rem;
+        margin: 5px 0 15px 0;
+        font-weight: 800;
+        letter-spacing: -1px;
+        line-height: 1.05;
+        text-transform: uppercase;
+        max-width: 700px;
       }
-      .hero-desc {
-        font-size: 1.2rem;
-        max-width: 650px;
-        margin-bottom: 25px;
-        color: #e5e5e5;
-      }
-      .btn-netflix {
-        padding: 12px 30px;
+
+      .top-10-badge {
+        display: flex;
+        align-items: center;
+        gap: 8px;
         font-size: 1.1rem;
-        font-weight: bold;
+        font-weight: 700;
+        margin-bottom: 15px;
+      }
+      .top-10-icon {
+        background-color: #e50914;
+        color: #fff;
+        padding: 2px 4px;
+        font-size: 0.65rem;
+        font-weight: 900;
+        border-radius: 2px;
+        line-height: 1;
+        text-align: center;
+      }
+
+      .hero-desc {
+        font-size: 1.1rem;
+        max-width: 500px;
+        margin-bottom: 30px;
+        color: #fff;
+        line-height: 1.4;
+        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+      }
+
+      .hero-buttons {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+
+      .btn-play {
+        padding: 10px 30px;
+        font-size: 1.1rem;
+        font-weight: 700;
         border: none;
         border-radius: 4px;
         cursor: pointer;
         background-color: #fff;
         color: #000;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        transition: background-color 0.2s;
+      }
+      .btn-play:hover {
+        background-color: rgba(255, 255, 255, 0.75);
       }
 
+      .btn-mylist {
+        padding: 10px 28px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        background-color: rgba(109, 109, 110, 0.7);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        transition: background-color 0.2s;
+      }
+      .btn-mylist:hover {
+        background-color: rgba(109, 109, 110, 0.4);
+      }
+
+      /* Pravé ovládacie prvky v hero sekcii */
+      .hero-vitals {
+        position: absolute;
+        right: 0;
+        bottom: 35%;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .btn-volume {
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+      }
+      .btn-volume svg {
+        fill: #fff;
+        width: 18px;
+        height: 18px;
+      }
+
+      .age-rating {
+        background-color: rgba(51, 51, 51, 0.6);
+        border-left: 3px solid #dcdcdc;
+        padding: 6px 40px 6px 12px;
+        font-size: 1rem;
+        font-weight: 400;
+      }
+
+      /* --- 5. FILMOVÝ RIADOK (BEZ PREKRÝVANIA) --- */
       .main-container {
-        padding: 40px 50px;
+        padding: 40px 4% 60px 4%;
+        background-color: #141414;
         position: relative;
         z-index: 5;
       }
+
       .row-title {
-        font-size: 1.8rem;
-        font-weight: bold;
-        margin-bottom: 20px;
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin-bottom: 15px;
         color: #e5e5e5;
       }
 
-      /* OCHRANA PROTI PREKRÝVANIU: AUTOMATICKÁ MRIEŽKA */
-      .movies-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 25px;
+      /* Zmena na horizontálny rolujúci riadok namiesto gridu */
+      .movies-row {
+        display: flex;
+        gap: 12px;
+        overflow-x: auto;
+        padding: 10px 0;
         width: 100%;
+      }
+      .movies-row::-webkit-scrollbar {
+        display: none;
       }
 
       .movie-card {
-        height: 165px;
-        background-color: #222;
-        border-radius: 6px;
+        min-width: 240px;
+        width: 240px;
+        height: 135px;
+        border-radius: 4px;
         cursor: pointer;
         display: flex;
-        flex-direction: column;
-        justify-content: flex-start; /* Zarovnanie obsahu NAHOR */
-        align-items: flex-start; /* Zarovnanie obsahu DOĽAVA */
-        padding: 0;
+        align-items: flex-end;
+        position: relative;
         box-sizing: border-box;
+        transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
         background-size: cover;
         background-position: center;
-        transition:
-          transform 0.3s ease,
-          box-shadow 0.3s ease;
-        overflow: hidden;
-        position: relative;
       }
 
       .movie-card:hover {
-        transform: scale(1.05);
-        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.6);
+        transform: scale(1.12);
+        z-index: 2;
       }
 
-      /* TEXT V ĽAVOM HORNOM ROHU */
       .movie-card h3 {
         margin: 0;
-        padding: 10px 15px;
-        font-size: 1rem;
-        font-weight: bold;
+        padding: 12px 10px;
+        font-size: 0.85rem;
+        font-weight: 700;
         color: #fff;
-        background: rgba(
-          0,
-          0,
-          0,
-          0.75
-        ); /* Tmavé pozadie pod textom pre čitateľnosť */
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.9) 0%,
+          rgba(0, 0, 0, 0.5) 70%,
+          rgba(0, 0, 0, 0) 100%
+        );
         width: 100%;
         box-sizing: border-box;
-        text-align: left;
       }
 
-      /* --- 4. MODAL PREHRÁVAČ --- */
+      /* --- 6. MODAL PREHRÁVAČ --- */
       .video-modal {
         display: none;
         position: fixed;
@@ -319,37 +494,107 @@
       </div>
     </div>
 
-    <header>
-      <div class="logo">NETFLIX</div>
+    <header id="navBar">
+      <div class="header-left">
+        <a href="#" class="logo">NETFLIX</a>
+        <nav>
+          <ul>
+            <li><a href="#" style="font-weight: 700; color: #fff">Home</a></li>
+            <li><a href="#">TV Shows</a></li>
+            <li><a href="#">Movies</a></li>
+            <li><a href="#">New & Popular</a></li>
+            <li><a href="#">My List</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="header-right">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+          />
+        </svg>
+        <span>KIDS</span>
+        <span>DVD</span>
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"
+          />
+        </svg>
+        <img
+          src="profilovka.jpg"
+          class="profile-dropdown-trigger"
+          alt="Profile"
+          onclick="location.reload()"
+        />
+      </div>
     </header>
 
     <div class="hero">
-      <div class="hero-title">Naše Spoločné Zážitky</div>
-      <div class="hero-desc">
-        Sleduj tie najlepšie momenty, ktoré sme spolu zažili.
+      <div class="series-tag"><span class="n-logo">N</span> S E R I E S</div>
+      <div class="hero-title">Naše Spoločné<br />Zážitky</div>
+      <div class="top-10-badge">
+        <div class="top-10-icon">
+          TOP<br /><span style="font-size: 0.8rem; font-weight: 900">10</span>
+        </div>
+        #1 in TV Shows Today
       </div>
-      <button
-        class="btn-netflix"
-        onclick="
-          openModal(
-            'Naše Spoločné Zážitky',
-            'video1.mp4',
-            'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=750',
-          )
-        "
-      >
-        ▶ Play
-      </button>
+      <div class="hero-desc">
+        Sleduj tie najlepšie momenty, ktoré sme spolu zažili. Výber našich
+        najobľúbenejších chvíľ pretavený do filmového spracovania.
+      </div>
+
+      <div class="hero-buttons">
+        <button
+          class="btn-play"
+          onclick="
+            openModal(
+              'Naše Spoločné Zážitky',
+              'video1.mp4',
+              'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=750',
+            )
+          "
+        >
+          <svg
+            viewBox="0 0 24 24"
+            style="width: 18px; height: 18px; fill: #000"
+          >
+            <path d="M8 5v14l11-7z" />
+          </svg>
+          Play
+        </button>
+        <button class="btn-mylist">
+          <svg
+            viewBox="0 0 24 24"
+            style="width: 18px; height: 18px; fill: #fff"
+          >
+            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+          </svg>
+          My List
+        </button>
+      </div>
+
+      <div class="hero-vitals">
+        <div class="btn-volume">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zM3 9v6h4l5 5V4L7 9H3z"
+            />
+          </svg>
+        </div>
+        <div class="age-rating">TV-14</div>
+      </div>
     </div>
 
     <div class="main-container">
       <div class="row-title">Najpopulárnejšie u vás</div>
 
-      <div class="movies-grid">
+      <div class="movies-row">
         <div
           class="movie-card"
           style="
-            background-image: url(&quot;https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=500&quot;);
+            background-image:
+              linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4)),
+              url(&quot;https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=500&quot;);
           "
           onclick="
             openModal(
@@ -364,7 +609,9 @@
         <div
           class="movie-card"
           style="
-            background-image: url(&quot;https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=500&quot;);
+            background-image:
+              linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4)),
+              url(&quot;https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=500&quot;);
           "
           onclick="
             openModal(
@@ -379,7 +626,9 @@
         <div
           class="movie-card"
           style="
-            background-image: url(&quot;https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=500&quot;);
+            background-image:
+              linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4)),
+              url(&quot;https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=500&quot;);
           "
           onclick="
             openModal(
@@ -394,7 +643,9 @@
         <div
           class="movie-card"
           style="
-            background-image: url(&quot;https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=500&quot;);
+            background-image:
+              linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4)),
+              url(&quot;https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=500&quot;);
           "
           onclick="
             openModal(
@@ -409,7 +660,9 @@
         <div
           class="movie-card"
           style="
-            background-image: url(&quot;https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=500&quot;);
+            background-image:
+              linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4)),
+              url(&quot;https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=500&quot;);
           "
           onclick="
             openModal(
@@ -424,7 +677,9 @@
         <div
           class="movie-card"
           style="
-            background-image: url(&quot;https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=500&quot;);
+            background-image:
+              linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4)),
+              url(&quot;https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=500&quot;);
           "
           onclick="
             openModal(
@@ -448,7 +703,15 @@
             <h2 style="font-size: 2rem; margin-bottom: 10px" id="modalTitle">
               Názov
             </h2>
-            <button class="btn-netflix" id="modalPlayBtn">▶ Play Now</button>
+            <button class="btn-play" id="modalPlayBtn">
+              <svg
+                viewBox="0 0 24 24"
+                style="width: 18px; height: 18px; fill: #000"
+              >
+                <path d="M8 5v14l11-7z" />
+              </svg>
+              Play Now
+            </button>
           </div>
         </div>
       </div>
@@ -507,6 +770,16 @@
         document.getElementById("netflixModal").style.display = "none";
         document.getElementById("mainVideoPlayer").pause();
       }
+
+      // Efekt stmavnutia menu pri scrollovaní
+      window.addEventListener("scroll", function () {
+        var nav = document.getElementById("navBar");
+        if (window.scrollY > 20) {
+          nav.style.backgroundColor = "#141414";
+        } else {
+          nav.style.backgroundColor = "transparent";
+        }
+      });
     </script>
   </body>
 </html>
