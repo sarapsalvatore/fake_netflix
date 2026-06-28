@@ -89,10 +89,11 @@
         cursor: pointer;
       }
 
+      /* TU JE ZMENA: DOKONALE OKRÚHLA PROFILOVKA */
       .profile-avatar {
         width: 150px;
         height: 150px;
-        border-radius: 4px;
+        border-radius: 50% !important;
         border: 3px solid transparent;
         transition:
           border-color 0.2s ease,
@@ -183,7 +184,7 @@
       .profile-dropdown-trigger {
         width: 32px;
         height: 32px;
-        border-radius: 4px;
+        border-radius: 50%; /* Aj tu v rohu bude okrúhla */
         cursor: pointer;
         object-fit: cover;
       }
@@ -312,7 +313,6 @@
         background-color: rgba(109, 109, 110, 0.4);
       }
 
-      /* Pravé ovládacie prvky v hero sekcii */
       .hero-vitals {
         position: absolute;
         right: 0;
@@ -347,7 +347,7 @@
         font-weight: 400;
       }
 
-      /* --- 5. FILMOVÝ RIADOK (BEZ PREKRÝVANIA) --- */
+      /* --- 5. FILMOVÝ RIADOK --- */
       .main-container {
         padding: 40px 4% 60px 4%;
         background-color: #141414;
@@ -362,7 +362,6 @@
         color: #e5e5e5;
       }
 
-      /* Zmena na horizontálny rolujúci riadok namiesto gridu */
       .movies-row {
         display: flex;
         gap: 12px;
@@ -771,7 +770,6 @@
         document.getElementById("mainVideoPlayer").pause();
       }
 
-      // Efekt stmavnutia menu pri scrollovaní
       window.addEventListener("scroll", function () {
         var nav = document.getElementById("navBar");
         if (window.scrollY > 20) {
