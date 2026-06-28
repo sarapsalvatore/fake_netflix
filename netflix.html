@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Naše Filmy</title>
     <style>
+      /* --- ZÁKLADNÉ NASTAVENIA --- */
       body {
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         background-color: #141414;
@@ -12,10 +13,10 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        overflow-x: hidden;
+        overflow: hidden; /* Zamedzí preblikávaniu lišt počas intra */
       }
 
-      /* --- 1. VIDEO INTRO OVERLAY --- */
+      /* --- 1. INTRO OBRAZOVKA (OKAMŽITÉ ZMIZNUTIE) --- */
       #intro-container {
         position: fixed;
         top: 0;
@@ -27,7 +28,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        transition: opacity 0.6s ease-out;
       }
 
       #intro-video {
@@ -48,18 +48,9 @@
         cursor: pointer;
         letter-spacing: 2px;
         text-transform: uppercase;
-        transition: all 0.3s ease;
-        box-shadow: 0 0 15px rgba(229, 9, 20, 0.2);
       }
 
-      .play-intro-btn:hover {
-        background-color: #e50914;
-        color: white;
-        box-shadow: 0 0 25px rgba(229, 9, 20, 0.6);
-        transform: scale(1.05);
-      }
-
-      /* --- 2. WHO'S WATCHING SCREEN --- */
+      /* --- 2. WHO'S WATCHING OBRAZOVKA --- */
       #profiles-container {
         position: fixed;
         top: 0;
@@ -68,11 +59,10 @@
         height: 100%;
         background-color: #141414;
         z-index: 9998;
-        display: none; /* Aktivuje sa skriptom po intre */
+        display: none; /* Zapne sa bleskovo v JS */
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        transition: opacity 0.5s ease;
       }
 
       .profiles-title {
@@ -81,7 +71,6 @@
         font-weight: 500;
         margin-bottom: 30px;
         letter-spacing: 1px;
-        text-align: center;
       }
 
       .profile-list {
@@ -97,20 +86,19 @@
         flex-direction: column;
         align-items: center;
         cursor: pointer;
-        text-decoration: none;
       }
 
+      /* DOKONALE GUĽATÝ TVAR BEZ DEFORMÁCIE */
       .profile-avatar {
         width: 150px;
         height: 150px;
-        border-radius: 4px;
-        background-image: url("https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=500"); /* Sem si hoď vašu long distance fotku */
-        background-size: cover;
-        background-position: center;
+        border-radius: 50% !important; /* Vynútená guľa */
         border: 3px solid transparent;
         transition:
           border-color 0.2s ease,
           transform 0.2s ease;
+        object-fit: cover;
+        background-color: #2b93ce;
       }
 
       .profile-card-wrapper:hover .profile-avatar {
@@ -122,31 +110,9 @@
         margin-top: 15px;
         font-size: 1.3rem;
         color: #808080;
-        transition: color 0.2s ease;
       }
 
-      .profile-card-wrapper:hover .profile-name {
-        color: #fff;
-      }
-
-      .manage-profiles-btn {
-        background-color: transparent;
-        border: 1px solid #808080;
-        color: #808080;
-        text-transform: uppercase;
-        padding: 10px 30px;
-        font-size: 1.1rem;
-        letter-spacing: 2px;
-        cursor: pointer;
-        transition: all 0.2s ease;
-      }
-
-      .manage-profiles-btn:hover {
-        border-color: #fff;
-        color: #fff;
-      }
-
-      /* --- 3. MAIN WEB CONTENT --- */
+      /* --- 3. HLAVNÝ NETFLIX WEB --- */
       header {
         padding: 20px 50px;
         background: linear-gradient(
@@ -165,7 +131,6 @@
         color: #e50914;
         font-size: 30px;
         font-weight: bold;
-        letter-spacing: 1px;
         text-transform: uppercase;
       }
 
@@ -178,7 +143,7 @@
             rgba(0, 0, 0, 0.1) 60%,
             rgba(0, 0, 0, 0.5) 100%
           ),
-          url("https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1925&auto=format&fit=crop")
+          url("https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1925")
             no-repeat center center/cover;
         display: flex;
         flex-direction: column;
@@ -187,37 +152,17 @@
         box-sizing: border-box;
       }
 
-      .hero-badge {
-        font-size: 0.9rem;
-        font-weight: bold;
-        letter-spacing: 4px;
-        color: #aaa;
-        margin-bottom: 5px;
-        text-transform: uppercase;
-      }
-
       .hero-title {
         font-size: 4.5rem;
         margin: 0 0 15px 0;
         font-weight: bold;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
-        letter-spacing: -1px;
       }
-
       .hero-desc {
         font-size: 1.3rem;
         max-width: 650px;
         margin-bottom: 25px;
-        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
-        line-height: 1.4;
         color: #e5e5e5;
       }
-
-      .hero-btns {
-        display: flex;
-        gap: 15px;
-      }
-
       .btn-netflix {
         padding: 12px 30px;
         font-size: 1.1rem;
@@ -225,49 +170,24 @@
         border: none;
         border-radius: 4px;
         cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        transition: opacity 0.2s;
-      }
-
-      .btn-play {
         background-color: #fff;
         color: #000;
       }
 
-      .btn-info {
-        background-color: rgba(109, 109, 110, 0.7);
-        color: #fff;
-      }
-
-      .btn-netflix:hover {
-        opacity: 0.85;
-      }
-
       .main-container {
-        padding: 0 50px 50px 50px;
+        padding: 50px;
         margin-top: -60px;
         position: relative;
         z-index: 5;
       }
-
       .row-title {
         font-size: 1.6rem;
         font-weight: bold;
         margin-bottom: 15px;
-        letter-spacing: 0.5px;
       }
-
       .movies-row {
         display: flex;
         gap: 15px;
-        overflow-x: auto;
-        padding-bottom: 20px;
-      }
-
-      .movies-row::-webkit-scrollbar {
-        display: none;
       }
 
       .movie-card {
@@ -276,9 +196,6 @@
         background-color: #333;
         border-radius: 4px;
         cursor: pointer;
-        transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-        position: relative;
-        overflow: hidden;
         display: flex;
         align-items: flex-end;
         padding: 15px;
@@ -287,36 +204,7 @@
         background-position: center;
       }
 
-      .movie-card:hover {
-        transform: scale(1.12);
-        z-index: 2;
-        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
-      }
-
-      .movie-card::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(
-          to top,
-          rgba(0, 0, 0, 0.8) 0%,
-          rgba(0, 0, 0, 0) 50%
-        );
-        z-index: 1;
-      }
-
-      .movie-card h3 {
-        margin: 0;
-        font-size: 1.1rem;
-        z-index: 2;
-        text-shadow: 1px 1px 3px #000;
-        font-weight: 500;
-      }
-
-      /* --- 4. REALISTIC NETFLIX MODAL --- */
+      /* --- 4. MODAL PREHRÁVAČ --- */
       .video-modal {
         display: none;
         position: fixed;
@@ -328,8 +216,6 @@
         z-index: 1000;
         justify-content: center;
         align-items: center;
-        padding: 20px;
-        box-sizing: border-box;
       }
 
       .modal-content {
@@ -339,49 +225,18 @@
         border-radius: 8px;
         overflow: hidden;
         position: relative;
-        box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.9);
-        animation: modalFadeIn 0.4s ease;
       }
 
-      @keyframes modalFadeIn {
-        from {
-          transform: scale(0.9);
-          opacity: 0;
-        }
-        to {
-          transform: scale(1);
-          opacity: 1;
-        }
-      }
-
-      /* Video / Banner vrstva v okne */
       .modal-video-box {
         position: relative;
         width: 100%;
         height: 350px;
-        background-size: cover;
-        background-position: center;
         display: flex;
         align-items: flex-end;
         padding: 30px;
         box-sizing: border-box;
       }
 
-      .modal-video-box::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(
-          to top,
-          #181818 0%,
-          rgba(24, 24, 24, 0) 60%
-        );
-      }
-
-      /* Samotný skrytý video prehrávač, ktorý prekryje banner po kliknutí na play */
       #mainVideoPlayer {
         display: none;
         position: absolute;
@@ -391,63 +246,6 @@
         height: 100%;
         z-index: 5;
         background-color: #000;
-      }
-
-      .modal-header-info {
-        position: relative;
-        z-index: 3;
-        width: 100%;
-      }
-
-      .modal-movie-title {
-        font-size: 2.5rem;
-        font-weight: bold;
-        margin: 0 0 15px 0;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-      }
-
-      /* Detaily vo vnútri modal okna */
-      .modal-body-details {
-        padding: 30px;
-        display: grid;
-        grid-template-columns: 2fr 1fr;
-        gap: 30px;
-        box-sizing: border-box;
-      }
-
-      .modal-left-desc {
-        font-size: 1.1rem;
-        line-height: 1.5;
-        color: #e5e5e5;
-      }
-
-      .modal-meta-row {
-        display: flex;
-        gap: 15px;
-        align-items: center;
-        margin-bottom: 15px;
-        font-size: 0.95rem;
-      }
-
-      .match-score {
-        color: #46d369;
-        font-weight: bold;
-      }
-
-      .video-badge {
-        border: 1px solid rgba(255, 255, 255, 0.4);
-        padding: 1px 5px;
-        font-size: 0.8rem;
-        border-radius: 3px;
-      }
-
-      .modal-right-meta {
-        font-size: 0.95rem;
-        color: #e5e5e5;
-      }
-
-      .meta-label {
-        color: #777;
       }
 
       .modal-close-btn {
@@ -465,12 +263,6 @@
         align-items: center;
         cursor: pointer;
         z-index: 10;
-        font-weight: bold;
-        transition: background-color 0.2s;
-      }
-
-      .modal-close-btn:hover {
-        background-color: #333;
       }
     </style>
   </head>
@@ -486,11 +278,10 @@
       <div class="profiles-title">Who's Watching?</div>
       <div class="profile-list">
         <div class="profile-card-wrapper" onclick="selectProfile()">
-          <div class="profile-avatar"></div>
+          <img src="profilovka.jpg" alt="Profile" class="profile-avatar" />
           <div class="profile-name">Love</div>
         </div>
       </div>
-      <button class="manage-profiles-btn">Manage Profiles</button>
     </div>
 
     <header>
@@ -498,45 +289,26 @@
     </header>
 
     <div class="hero">
-      <div class="hero-badge">⭐ SOMETHING SPECIAL</div>
       <div class="hero-title">Naše Spoločné Zážitky</div>
       <div class="hero-desc">
-        Sleduj tie najlepšie, najvtipnejšie a najbláznivejšie momenty, ktoré sme
-        spolu zažili. Aj keď sme ďaleko, toto nás spája.
+        Sleduj tie najlepšie momenty, ktoré sme spolu zažili.
       </div>
-      <div class="hero-btns">
-        <button
-          class="btn-netflix btn-play"
-          onclick="
-            openModal(
-              'Naše Spoločné Zážitky',
-              'Toto je zhrnutie našich najkrajších spomienok. Všetky bláznivé chaty, spoločné nočné hovory a okamihy zachytené na kameru.',
-              'video1.mp4',
-              'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=750',
-            )
-          "
-        >
-          ▶ Play
-        </button>
-        <button
-          class="btn-netflix btn-info"
-          onclick="
-            openModal(
-              'Naše Spoločné Zážitky',
-              'Toto je zhrnutie našich najkrajších spomienok. Všetky bláznivé chaty, spoločné nočné hovory a okamihy zachytené na kameru.',
-              'video1.mp4',
-              'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=750',
-            )
-          "
-        >
-          ⓘ More Info
-        </button>
-      </div>
+      <button
+        class="btn-netflix"
+        onclick="
+          openModal(
+            'Naše Spoločné Zážitky',
+            'video1.mp4',
+            'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=750',
+          )
+        "
+      >
+        ▶ Play
+      </button>
     </div>
 
     <div class="main-container">
       <div class="row-title">Najpopulárnejšie u vás</div>
-
       <div class="movies-row">
         <div
           class="movie-card"
@@ -546,7 +318,6 @@
           onclick="
             openModal(
               'Film 1: Výlet do mesta',
-              'Úžasné zábery z našej cesty. Spoznávanie nových miest, jedla a nekonečné smiechy uličkami veľkomesta.',
               'video1.mp4',
               'https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=750',
             )
@@ -554,190 +325,82 @@
         >
           <h3>Film 1: Výlet do mesta</h3>
         </div>
-
-        <div
-          class="movie-card"
-          style="
-            background-image: url(&quot;https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=500&quot;);
-          "
-          onclick="
-            openModal(
-              'Film 2: Zo školy',
-              'Spomienky na nudné hodiny, ktoré sme zachránili písaním správ, vtipnými selfiečkami a spoločnými prestávkami.',
-              'video2.mp4',
-              'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=750',
-            )
-          "
-        >
-          <h3>Film 2: Zo školy</h3>
-        </div>
-
-        <div
-          class="movie-card"
-          style="
-            background-image: url(&quot;https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=500&quot;);
-          "
-          onclick="
-            openModal(
-              'Film 3: Letná párty',
-              'Noc plná hudby, svetiel a najlepšej atmosféry leta. Momentky, na ktoré nikdy nezabudneme.',
-              'video3.mp4',
-              'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=750',
-            )
-          "
-        >
-          <h3>Film 3: Letná párty</h3>
-        </div>
-
-        <div
-          class="movie-card"
-          style="
-            background-image: url(&quot;https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=500&quot;);
-          "
-          onclick="
-            openModal(
-              'Film 4: Vlog zo záhrady',
-              'Pohodový deň plný varenia, bláznenia na slnku a rozprávania o živote na našom obľúbenom mieste.',
-              'video4.mp4',
-              'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=750',
-            )
-          "
-        >
-          <h3>Film 4: Vlog zo záhrady</h3>
-        </div>
       </div>
     </div>
 
     <div class="video-modal" id="netflixModal">
       <div class="modal-content">
         <div class="modal-close-btn" onclick="closeModal()">&times;</div>
-
         <div class="modal-video-box" id="modalBanner">
           <video id="mainVideoPlayer" controls></video>
-
-          <div class="modal-header-info" id="modalHeaderText">
-            <h2 class="modal-movie-title" id="modalTitle">Názov filmu</h2>
-            <button
-              class="btn-netflix btn-play"
-              id="modalPlayBtn"
-              style="padding: 8px 24px; font-size: 1rem"
-            >
-              ▶ Play Now
-            </button>
-          </div>
-        </div>
-
-        <div class="modal-body-details">
-          <div class="modal-left-desc">
-            <div class="modal-meta-row">
-              <span class="match-score">98% Match</span>
-              <span>2026</span>
-              <span class="video-badge">13+</span>
-              <span class="video-badge">HD</span>
-            </div>
-            <div id="modalDescription">
-              Tu bude načítaný dlhý realistický text o filme...
-            </div>
-          </div>
-          <div class="modal-right-meta">
-            <p><span class="meta-label">Cast:</span> You, Me</p>
-            <p><span class="meta-label">Genres:</span> Romantic, Reality</p>
-            <p>
-              <span class="meta-label">This video is:</span> Heartfelt, Special
-            </p>
+          <div style="position: relative; z-index: 3" id="modalHeaderText">
+            <h2 style="font-size: 2rem; margin-bottom: 10px" id="modalTitle">
+              Názov
+            </h2>
+            <button class="btn-netflix" id="modalPlayBtn">▶ Play Now</button>
           </div>
         </div>
       </div>
     </div>
 
     <script>
-      var currentVideoSrc = ""; // Držíme si link na vybrané video
+      var currentVideoSrc = "";
+      var done = false;
 
-      // 1. KROK: Spustenie intra
       function startEverything() {
         var btn = document.getElementById("start-btn");
         var introVideo = document.getElementById("intro-video");
 
         btn.style.display = "none";
         introVideo.style.display = "block";
+        introVideo.play();
 
-        introVideo.play().catch(function (error) {
-          console.log("Prehrávanie zlyhalo:", error);
-        });
-
-        // Po skončení videa prejdeme na obrazovku profilov
+        // Akonáhle video DOSTRSTRIHÁ, okamžite bez animácie prepni obrazovku
         introVideo.onended = function () {
-          showProfilesScreen();
+          switchToProfiles();
         };
 
+        // Tvrdá poistka na 4.1 sekundy, ak by video seklo
         setTimeout(function () {
-          showProfilesScreen();
-        }, 4300);
+          switchToProfiles();
+        }, 4100);
       }
 
-      // 2. KROK: Prechod z intra na Výber profilu
-      function showProfilesScreen() {
-        var introContainer = document.getElementById("intro-container");
-        var profilesContainer = document.getElementById("profiles-container");
+      // BLESKOVÝ PRECHOD BEZ ČAKANIA A PREBLIKÁVANIA
+      function switchToProfiles() {
+        if (done) return;
+        done = true;
 
-        introContainer.style.opacity = "0";
-        setTimeout(function () {
-          introContainer.style.display = "none";
-          profilesContainer.style.display = "flex";
-          profilesContainer.style.opacity = "1";
-        }, 600);
+        // Úplne vymažeme intro kontajner a natvrdo zapneme profily
+        document.getElementById("intro-container").style.display = "none";
+        document.getElementById("profiles-container").style.display = "flex";
+        document.body.style.overflow = "auto"; // Povolíme skrolovanie na webe
       }
 
-      // 3. KROK: Výber profilu a odhalenie hlavného webu
       function selectProfile() {
-        var profilesContainer = document.getElementById("profiles-container");
-        profilesContainer.style.opacity = "0";
-        setTimeout(function () {
-          profilesContainer.style.display = "none";
-        }, 500);
+        document.getElementById("profiles-container").style.display = "none";
       }
 
-      // 4. KROK: Otvorenie realistického Netflix menu pre filmy
-      function openModal(title, description, videoSrc, bgImage) {
+      function openModal(title, videoSrc, bgImage) {
         var modal = document.getElementById("netflixModal");
-        var banner = document.getElementById("modalBanner");
-
         document.getElementById("modalTitle").innerText = title;
-        document.getElementById("modalDescription").innerText = description;
-        banner.style.backgroundImage = "url('" + bgImage + "')";
-
-        currentVideoSrc = videoSrc; // Uložíme si cestu k videu
-
-        // Reštartujeme zobrazenia (ak by minule bežalo video, skryjeme ho)
-        document.getElementById("mainVideoPlayer").style.display = "none";
-        document.getElementById("mainVideoPlayer").src = "";
-        document.getElementById("modalHeaderText").style.display = "block";
-
+        document.getElementById("modalBanner").style.backgroundImage =
+          "url('" + bgImage + "')";
+        currentVideoSrc = videoSrc;
         modal.style.display = "flex";
 
-        // Priradíme spustenie videa tlačidlu vo vnútri modal okna
         document.getElementById("modalPlayBtn").onclick = function () {
-          startActualVideo();
+          var player = document.getElementById("mainVideoPlayer");
+          document.getElementById("modalHeaderText").style.display = "none";
+          player.style.display = "block";
+          player.src = currentVideoSrc;
+          player.play();
         };
       }
 
-      // Spustenie samotného mp4 videa vo vnútri modal okna
-      function startActualVideo() {
-        var player = document.getElementById("mainVideoPlayer");
-        document.getElementById("modalHeaderText").style.display = "none";
-        player.style.display = "block";
-        player.src = currentVideoSrc;
-        player.play();
-      }
-
-      // Zatvorenie vyskakovacieho okna
       function closeModal() {
-        var modal = document.getElementById("netflixModal");
-        var player = document.getElementById("mainVideoPlayer");
-
-        modal.style.display = "none";
-        player.pause();
-        player.src = "";
+        document.getElementById("netflixModal").style.display = "none";
+        document.getElementById("mainVideoPlayer").pause();
       }
     </script>
   </body>
