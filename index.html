@@ -89,7 +89,7 @@
         cursor: pointer;
       }
 
-      /* TU JE ZMENA: DOKONALE OKRÚHLA PROFILOVKA */
+      /* DOKONALE OKRÚHLA PROFILOVKA */
       .profile-avatar {
         width: 150px;
         height: 150px;
@@ -184,14 +184,14 @@
       .profile-dropdown-trigger {
         width: 32px;
         height: 32px;
-        border-radius: 50%; /* Aj tu v rohu bude okrúhla */
+        border-radius: 50%;
         cursor: pointer;
         object-fit: cover;
       }
 
-      /* --- 4. HERO SEKCE (NETFLIX VIBE) --- */
+      /* --- 4. HERO SEKCE (VYRIEŠENÉ PREKRÝVANIE) --- */
       .hero {
-        height: 85vh;
+        min-height: 95vh; /* Zväčšená minimálna výška pre dostatok priestoru */
         background:
           linear-gradient(
             to top,
@@ -201,9 +201,9 @@
           ),
           linear-gradient(
             to right,
-            rgba(20, 20, 20, 0.8) 0%,
-            rgba(20, 20, 20, 0.4) 30%,
-            rgba(20, 20, 20, 0) 60%
+            rgba(20, 20, 20, 0.9) 0%,
+            rgba(20, 20, 20, 0.5) 30%,
+            rgba(20, 20, 20, 0) 70%
           ),
           url("https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1925");
         background-size: cover;
@@ -211,7 +211,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        padding-left: 4%;
+        padding: 120px 4% 80px 4%; /* Bezpečné vnútorné odsadenie zhora aj zdola */
         box-sizing: border-box;
         position: relative;
       }
@@ -264,7 +264,7 @@
 
       .hero-desc {
         font-size: 1.1rem;
-        max-width: 500px;
+        max-width: 550px;
         margin-bottom: 30px;
         color: #fff;
         line-height: 1.4;
@@ -274,7 +274,6 @@
       .hero-buttons {
         display: flex;
         gap: 12px;
-        margin-bottom: 20px;
       }
 
       .btn-play {
@@ -313,10 +312,11 @@
         background-color: rgba(109, 109, 110, 0.4);
       }
 
+      /* Pravé ovládacie prvky v hero sekcii */
       .hero-vitals {
         position: absolute;
         right: 0;
-        bottom: 35%;
+        bottom: 120px;
         display: flex;
         align-items: center;
         gap: 15px;
@@ -349,10 +349,11 @@
 
       /* --- 5. FILMOVÝ RIADOK --- */
       .main-container {
-        padding: 40px 4% 60px 4%;
+        padding: 20px 4% 60px 4%; /* Horný padding upravený pre čistý prechod */
         background-color: #141414;
         position: relative;
         z-index: 5;
+        margin-top: 0; /* Odstránený negatívny margin, ktorý spôsoboval prekrývanie */
       }
 
       .row-title {
