@@ -1445,36 +1445,44 @@
 
         document.getElementById("modalHeaderText").style.display = "block";
 
-        // Skryjeme prehrávač pred stlačením tlačidla Play
+        // 1. KROK: Automaticky nájdeme starý prehrávač a dáme okolo neho obal, ak tam ešte nie je
+        var player = document.getElementById("mainVideoPlayer");
+        if (player && player.parentElement.id !== "playerWrapper") {
+          var wrapper = document.createElement("div");
+          wrapper.id = "playerWrapper";
+          player.parentNode.insertBefore(wrapper, player);
+          wrapper.appendChild(player);
+        }
+
+        // Skryjeme celý prehrávač pred stlačením Play
         var playerWrapper = document.getElementById("playerWrapper");
         if (playerWrapper) {
           playerWrapper.style.display = "none";
-          playerWrapper.innerHTML = '<div id="mainVideoPlayer"></div>'; // Reset obsahu wrapperu
         }
 
         modal.style.display = "flex";
 
-        // Akcia po kliknutí na "Play"
+        // 2. KROK: Čisté spustenie po kliknutí na "Play"
         document.getElementById("modalPlayBtn").onclick = function () {
           document.getElementById("modalHeaderText").style.display = "none";
           playerWrapper.style.display = "block";
 
-          // Rozhodnutie, či ide o YouTube alebo MP4 lokálny súbor
+          // Ak ide o YouTube odkaz, vygenerujeme správny bezchybný iframe
           if (
             currentVideoSrc.includes("youtube.com") ||
             currentVideoSrc.includes("youtu.be")
           ) {
-            // FIX: V atribúte allow je pridaný fullscreen, accelerometer a gyroscope
             playerWrapper.innerHTML = `
             <iframe id="mainVideoPlayer" 
                     src="${currentVideoSrc}" 
                     frameborder="0" 
-                    allow="autoplay; fullscreen; encrypted-media; picture-in-picture; accelerometer; gyroscope" 
+                    allow="autoplay; encrypted-media; picture-in-picture" 
                     allowfullscreen
                     referrerpolicy="strict-origin-when-cross-origin"
                     style="width: 100%; height: 400px; display: block; border-radius: 8px;">
             </iframe>`;
           } else {
+            // Ak ide o bežný lokálny mp4 súbor, použijeme čisté video
             playerWrapper.innerHTML = `
             <video id="mainVideoPlayer" 
                    src="${currentVideoSrc}" 
@@ -1485,23 +1493,11 @@
           }
         };
       }
-
       function closeModal() {
         document.getElementById("netflixModal").style.display = "none";
         var player = document.getElementById("mainVideoPlayer");
-
-        if (player) {
-          // Bezpečné zastavenie lokálneho HTML5 videa
-          if (typeof player.pause === "function") {
-            player.pause();
-          }
-          // Reset src pre zastavenie YouTube videa bežiaceho v iframe
-          player.src = "";
-        }
-
-        // Úplne prečistíme wrapper pri zavretí okna
-        document.getElementById("playerWrapper").innerHTML =
-          '<div id="mainVideoPlayer"></div>';
+        player.pause();
+        player.src = "";
       }
     </script>
   </body>
