@@ -920,8 +920,8 @@
             onclick="
               openModal(
                 'Adrenaline: Honda Fireblade SP',
-                'honda.mp4',
-                'https: //images.unsplash.com/photo-1558981806-ec527fa84c39?q=80&w=750',
+                'https://www.youtube.com/embed/0VGfHy2NuoI?autoplay=1&mute=1&controls=1&rel=0',
+                'https://images.unsplash.com/photo-1558981806-ec527fa84c39?q=80&w=750',
                 'Experience the raw, visceral scream of the inline-four engine as the 2026 Honda Fireblade SP dominates the tarmac with pure sound and fast riding.',
                 'Honda Racing',
                 'Motorsport, Action',
@@ -1584,19 +1584,55 @@
         currentVideoSrc = videoSrc;
 
         document.getElementById("modalHeaderText").style.display = "block";
-        document.getElementById("mainVideoPlayer").style.display = "none";
+
+        // 1. KROK: Automaticky nájdeme starý prehrávač a dáme okolo neho obal, ak tam ešte nie je
+        var player = document.getElementById("mainVideoPlayer");
+        if (player && player.parentElement.id !== "playerWrapper") {
+          var wrapper = document.createElement("div");
+          wrapper.id = "playerWrapper";
+          player.parentNode.insertBefore(wrapper, player);
+          wrapper.appendChild(player);
+        }
+
+        // Skryjeme celý prehrávač pred stlačením Play
+        var playerWrapper = document.getElementById("playerWrapper");
+        if (playerWrapper) {
+          playerWrapper.style.display = "none";
+        }
 
         modal.style.display = "flex";
 
+        // 2. KROK: Čisté spustenie po kliknutí na "Play"
         document.getElementById("modalPlayBtn").onclick = function () {
-          var player = document.getElementById("mainVideoPlayer");
           document.getElementById("modalHeaderText").style.display = "none";
-          player.style.display = "block";
-          player.src = currentVideoSrc;
-          player.play();
+          playerWrapper.style.display = "block";
+
+          // Ak ide o YouTube odkaz, vygenerujeme správny bezchybný iframe
+          if (
+            currentVideoSrc.includes("youtube.com") ||
+            currentVideoSrc.includes("youtu.be")
+          ) {
+            playerWrapper.innerHTML = `
+            <iframe id="mainVideoPlayer" 
+                    src="${currentVideoSrc}" 
+                    frameborder="0" 
+                    allow="autoplay; encrypted-media; picture-in-picture" 
+                    allowfullscreen
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    style="width: 100%; height: 400px; display: block; border-radius: 8px;">
+            </iframe>`;
+          } else {
+            // Ak ide o bežný lokálny mp4 súbor, použijeme čisté video
+            playerWrapper.innerHTML = `
+            <video id="mainVideoPlayer" 
+                   src="${currentVideoSrc}" 
+                   controls 
+                   autoplay 
+                   style="width: 100%; height: 400px; display: block; border-radius: 8px;">
+            </video>`;
+          }
         };
       }
-
       function closeModal() {
         document.getElementById("netflixModal").style.display = "none";
         var player = document.getElementById("mainVideoPlayer");
