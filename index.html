@@ -316,33 +316,35 @@
 
       /* --- 5. FILMOVÉ RIADKY (HORIZONTAL SCROLL) --- */
       .main-container {
-        padding: 40px 0px 60px 4%;
+        padding: 40px 0px 60px 0px; /* ZMENENÉ: Odstránili sme percentá, ktoré robili chaos */
         background-color: #141414;
         position: relative;
         z-index: 5;
       }
 
       .movie-category-row {
-        margin-bottom: 40px;
+        padding-left: 0px; /* Zmeň toto na 0px */
+        padding-right: 40px;
+        margin-bottom: 35px;
+        box-sizing: border-box;
       }
 
+      /* Tieto dve triedy nechaj bez padding-left, pretože okraj už riadi .movie-category-row */
       .row-title {
-        font-size: 1.4rem;
-        font-weight: 700;
+        font-size: 24px;
+        font-weight: bold;
         margin-bottom: 15px;
-        color: #e5e5e5;
+        color: #fff;
+        padding-left: 0px;
       }
 
       .movies-row {
         display: flex;
-        gap: 14px;
+        gap: 15px;
         overflow-x: auto;
-        padding: 15px 0;
-        width: 100%;
-        scroll-behavior: smooth;
-        -webkit-overflow-scrolling: touch; /* Hladký scroll na iOS */
+        padding-left: 0px;
+        padding-bottom: 15px;
       }
-
       /* Skrytie posuvníka */
       .movies-row::-webkit-scrollbar {
         display: none;
@@ -780,8 +782,7 @@
       </div>
     </div>
 
-    <div class="main-container">
-      <div class="movie-category-row">
+      <div class="movie-category-row"></div>
         <div class="row-title">Najpopulárnejšie u vás</div>
         <div class="movies-row">
           <div
